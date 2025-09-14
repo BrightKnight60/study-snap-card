@@ -37,6 +37,16 @@ const Index = () => {
     setMode("study");
   };
 
+  const addCardsFromDocument = (newCards: Array<{front: string, back: string}>) => {
+    const cardsWithIds: FlashcardData[] = newCards.map((card, index) => ({
+      id: `${Date.now()}-${index}`,
+      front: card.front,
+      back: card.back,
+    }));
+    setCards(prevCards => [...prevCards, ...cardsWithIds]);
+    setMode("study");
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Toaster />
@@ -89,7 +99,7 @@ const Index = () => {
           <StudyMode cards={cards} onBackToCreate={() => setMode("create")} />
         ) : (
           <div className="max-w-2xl mx-auto">
-            <CreateCardForm onAddCard={addCard} />
+            <CreateCardForm onAddCard={addCard} onAddCardsFromDocument={addCardsFromDocument} />
             
             {cards.length > 0 && (
               <div className="mt-8 text-center">
