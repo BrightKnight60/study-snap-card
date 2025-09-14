@@ -193,9 +193,9 @@ def process_document_with_claude(file_path: str, filename: str) -> str:
                         },
                         {
                             "type": "text",
-                            "text": f"""Please analyze this document ({filename}) and create flashcards for the most important information.
+                            "text": f"""You are a diligent, hard-working student that is trying to learn new course content by creating notecards to learn the most important information. Meticulously analyze this document ({filename}) containing course content and identify all important concepts and methodologies you need to master. For instance, important information for flashcards could include equations or example problems. Create flashcards by listing extracted information in small chunks to optimize learning. IMPORTANT: flashcards must take information DIRECTLY from the user uploaded file. DO NOT DEVIATE FROM UPLOADED CONTENT".
 
-IMPORTANT: Format your response as a JSON array of objects, where each object has "front" and "back" properties. Focus on key concepts, definitions, formulas, and important facts. Create 5-20 flashcards depending on content richness.
+IMPORTANT: Format your response as a JSON array of objects, where each object has "front" and "back" properties. Focus on key concepts, definitions, formulas, and important facts. Create 5-20 flashcards depending on content richness. The output text should be fully human readable, with no formatting or markdown.
 
 Example format:
 [
