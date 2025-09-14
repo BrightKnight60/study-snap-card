@@ -4,8 +4,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Button } from "@/components/ui/button";
 import { StudyMode } from "@/components/StudyMode";
 import { CreateCardForm } from "@/components/CreateCardForm";
-import { FileUpload } from "@/components/FileUpload";
-import { BookOpen, Plus, Upload, BarChart3 } from "lucide-react";
+import { BookOpen, Plus, BarChart3 } from "lucide-react";
 
 interface FlashcardData {
   id: string;
@@ -26,7 +25,7 @@ const Index = () => {
       back: "HyperText Markup Language"
     }
   ]);
-  const [mode, setMode] = useState<"study" | "create" | "upload">("study");
+  const [mode, setMode] = useState<"study" | "create">("study");
 
   const addCard = (front: string, back: string) => {
     const newCard: FlashcardData = {
@@ -35,16 +34,6 @@ const Index = () => {
       back,
     };
     setCards([...cards, newCard]);
-    setMode("study");
-  };
-
-  const addGeneratedCards = (generatedCards: { front: string; back: string }[]) => {
-    const newCards = generatedCards.map((card, index) => ({
-      id: `${Date.now()}-${index}`,
-      front: card.front,
-      back: card.back,
-    }));
-    setCards([...cards, ...newCards]);
     setMode("study");
   };
 
@@ -73,14 +62,6 @@ const Index = () => {
                 {cards.length} cards
               </div>
               <Button
-                onClick={() => setMode("upload")}
-                variant={mode === "upload" ? "default" : "outline"}
-                className="gap-2"
-              >
-                <Upload className="w-4 h-4" />
-                Upload File
-              </Button>
-              <Button
                 onClick={() => setMode(mode === "study" ? "create" : "study")}
                 variant={mode === "create" ? "default" : "outline"}
                 className="gap-2"
@@ -106,19 +87,6 @@ const Index = () => {
       <main className="container mx-auto px-4 py-8">
         {mode === "study" ? (
           <StudyMode cards={cards} onBackToCreate={() => setMode("create")} />
-        ) : mode === "upload" ? (
-          <div className="max-w-2xl mx-auto">
-            <FileUpload onCardsGenerated={addGeneratedCards} />
-            
-            {cards.length > 0 && (
-              <div className="mt-8 text-center">
-                <Button onClick={() => setMode("study")} className="gap-2">
-                  <BookOpen className="w-4 h-4" />
-                  Start Studying ({cards.length} cards)
-                </Button>
-              </div>
-            )}
-          </div>
         ) : (
           <div className="max-w-2xl mx-auto">
             <CreateCardForm onAddCard={addCard} />
