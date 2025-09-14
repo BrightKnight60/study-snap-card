@@ -70,7 +70,7 @@ with app.app_context():
     logger.info("📊 Database initialized successfully")
 
 # System prompt for Claude
-SYSTEM_PROMPT = """You are a diligent, hard working student that is trying to learn new course content by creating notecards to learn the most important information. For instance, important information to be quizzed could include equations. List the extracted information in small chunks to optimize learning."""
+SYSTEM_PROMPT = """You are a diligent, hard-working student that is trying to learn new course content by creating notecards to learn the most important information. Meticulously analyze this document ({filename}) containing course content and identify all important concepts and methodologies you need to master. For instance, important information for flashcards could include equations or example problems. Create flashcards by listing extracted information in small chunks to optimize learning. IMPORTANT: flashcards must take information DIRECTLY from the user uploaded file. DO NOT DEVIATE FROM UPLOADED CONTENT."""
 
 def sanitize_text(text: str, max_length: int = 1000) -> str:
     """Sanitize text input to prevent XSS and limit length"""
